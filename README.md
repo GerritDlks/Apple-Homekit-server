@@ -114,7 +114,10 @@ pihole -a -p newpasswordhere
 ```  
 
 ## Web interface
-To access the web interface, enter the fixed IP address of your Raspberry Pi into your browser and then add '/admin' to it.
+To access the web interface, enter the fixed IP address of your Raspberry Pi into your browser and then add '/admin' to it. E.g.:
+```bash
+192.168.1.10/admin
+```  
 
 ## Configure your devices
 To enable the ad blocking, your devices must use your Raspberry Pi's static IP address as DNS server. You can set these manually, configure your router to broadcast these settings, or disable DHCP on your router and use the DHCP server of PiHole.
