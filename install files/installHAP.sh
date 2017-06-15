@@ -50,6 +50,10 @@ sudo npm install node-cmd
 # Create Python script folder
 mkdir /home/pi/HAP-NodeJS/python
 
+# Copy accessories into example folder (so they won't spam your home app)
+mkdir /home/pi/HAP-NodeJS/accessories/examples
+mv /home/pi/HAP-NodeJS/accessories/*js /home/pi/HAP-NodeJS/accessories/examples
+
 # Start HAP-NodeJS
 cd /home/pi/HAP-NodeJS
 sudo forever start Core.js
