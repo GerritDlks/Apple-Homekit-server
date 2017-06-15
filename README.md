@@ -9,6 +9,25 @@ Check out below to see how to use and configure a [Sonoff basic](https://www.ite
 [PiHole](https://github.com/pi-hole/pi-hole) is a multi-platform (android, iOS, Windows, macOS, Linux, ...) system-wide (no need for special software on your devices) ad-blocker.  
 I configured this too on my HAP-NodeJS server, because why not? It's the best ad-blocker out there!
 
+# Table of Contents
+- [Install HAP](#install-hap)
+    - [Prerequisites](#prerequisites)
+    - [Install script](#install-script)
+    - [Test installation](#test-installation---pis-onboard-led-as-light-accessory)
+    - [Add light accessories](#add-light-accessories)
+
+- [Sonoff devices with HAP-NodeJS server](#sonoff-devices-with-hap-nodejs-server)
+    - [What you'll need](#what-youll-need)
+    - [Install Sonoff HAP-NodeJS packages](#install-sonoff-hap-nodejs-packages)
+    - [Flash Sonoff](#flash-sonoff)
+    - [Configure accessory](#configure-accessory)
+
+- [Pi-Hole](#pi-hole)
+    - [Install](#install)
+    - [Change password](#change-password)
+    - [Web interface](#web-interface)
+    - [Configure your devices](#configure-your-devices)
+
 
 
 # Install HAP
@@ -44,8 +63,9 @@ sudo passwd pi
 ## Install script
 To install HAP-NodeJS, I created a simple script that will do everything for you. Just execute the following line on your Raspberry Pi, lay back and relax. This can take a while (up to 1 hour, maybe).
 ```bash
-cd && sudo wget https://goo.gl/8oN37T && sudo sh installHAP.sh && rm installHAP.sh
+curl https://goo.gl/8oN37T | bash
 ```
+*cURLing and Piping To Bash can be dangerous, if you do not trust this, I recommend you to download the file with 'wget', check its content and then run the installer yourself.*
 
 When this completes, HAP-NodeJS will be installed and will be running. There will be 2 folders that you'll update regulary when setting up your Homekit devices:
 - cd /home/pi/HAP-NodeJS/accessories
@@ -58,8 +78,10 @@ The python folder will contain all scripts that you want to execute when the sta
 To test your installation, you can configure the onboard LED of your Raspberry Pi as a light accessory. This is also a great way to learn how to use the [example accessories](https://github.com/KhaosT/HAP-NodeJS/tree/master/accessories).  
 To install the LED accessory, execute the following command:
 ```bash
-cd && sudo wget https://goo.gl/JGdV8Z  && sudo sh install_onboardLED_accessorry.sh && rm install_onboardLED_accessorry.sh
-```  
+curl https://goo.gl/JGdV8Z  | bash
+```
+*cURLing and Piping To Bash can be dangerous, if you do not trust this, I recommend you to download the file with 'wget', check its content and then run the installer yourself.*  
+
 This will install 2 files:
 - /home/pi/HAP-NodeJS/accessories/[Light_OnBoardLED_accessory.js](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/accessories/Light_OnBoardLED_accessory.js)
 - /home/pi/HAP-NodeJS/python/[onboard-LED.py](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/python%20scripts/onboard-LED.py)
@@ -72,10 +94,13 @@ Now you're able to create a light accessory. If you want to create a second ligh
 
 To remove the onboard LED accessory, execute the following command:
 ```bash
-rm /home/pi/HAP-NodeJS/accessories/Light_OnBoardLED_accessory.js /home/pi/HAP-NodeJS/python/onboard-LED.py && echo mmc0 | sudo tee /sys/class/leds/led0/trigger
+rm /home/pi/HAP-NodeJS/accessories/Light_OnBoardLED_accessory.js /home/pi/HAP-NodeJS/python/onboard-LED.py && echo mmc0 | sudo tee /sys/class/leds/led0/trigger && restartHAP
 ```
 
-To remove any other accessory, You can just remove the accessory.js file (and, optionally, the python script).
+To remove any other accessory, You can just remove the accessory.js file (and, optionally, the python script). Be sure to always restart the HAP-NodeJS server by executing the following custom command:
+```bash
+restartHAP
+```
 
 ## Add light accessories
 I included 2 other files:
@@ -83,6 +108,11 @@ I included 2 other files:
 - The [python script](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/python%20scripts/set-GPIO.py) to toggle the GPIO pin.
 
 To use these, just copy the files to the correct folder, change the correct lines in the accessory file, and extra: change [line 13](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/accessories/Light_GPIO_accessory.js#L13) of the accessory file with the GPIO number of the output that you want to control.
+
+ Be sure to always restart the HAP-NodeJS server after changing, removing or adding accessories, by executing the following custom command:
+```bash
+restartHAP
+```
 
 # Sonoff devices with HAP-NodeJS server
 
