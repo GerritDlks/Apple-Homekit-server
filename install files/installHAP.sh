@@ -84,6 +84,12 @@ echo "*/5 * * * * ping -c 5 google.com" >> mycron
 sudo crontab mycron
 sudo rm -f mycron
 
+# Create aliasses to start, stop and restart HAP-NodeJS
+echo 'alias startHAP="sudo forever start /home/pi/HAP-NodeJS/Core.js"' >> ~/.bashrc
+echo 'alias stopHAP="sudo forever stopall"' >> ~/.bashrc
+echo 'alias restartHAP="/home/pi/HAP-NodeJS/startHAP.sh"' >> ~/.bashrc
+source ~/.bashrc
+
 echo "------------------------------"
 echo "If there were no errors, HAP-NodeJS server is installed and on your Pi."
 echo "HAP-NodeJS will automatically start when your Pi is booting up. If you want to stop the HAP-NodeJS, use 'sudo forever stopall'."
