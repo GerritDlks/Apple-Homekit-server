@@ -67,6 +67,33 @@ sudo forever start Core.js
       echo "COULD NOT APPEND 'sudo forever start /home/pi/HAP-NodeJS/Core.js' to '/etc/rc.local', before 'exit 0'"
   fi
 
+
+# Create script that will restart HAP-NodeJS
+cd /home/pi/HAP-NodeJS
+echo "sudo forever stopall" >> /home/pi/HAP-NodeJS/startHAP.sh
+echo "cd /home/pi/HAP-NodeJS" >> /home/pi/HAP-NodeJS/startHAP.sh
+echo "sudo forever start Core.sh" >> /home/pi/HAP-NodeJS/startHAP.sh
+sudo chmod 777 /home/pi/HAP-NodeJS/startHAP.sh
+sudo chmod +x /home/pi/HAP-NodeJS/startHAP.sh
+
+# execute the script every day and keep the pi busy (ping every 5 minutes) so it doesn't slack over time
+cd
+sudo crontab -l > mycron
+echo "@daily /home/pi/HAP-NodeJS/startHAP.sh" >> mycron
+echo "*/5 * * * * ping -c 5 google.com" >> mycron
+sudo crontab mycron
+sudo rm -f mycron
+
 echo "------------------------------"
 echo "If there were no errors, HAP-NodeJS server is installed and on your Pi."
 echo "HAP-NodeJS will automatically start when your Pi is booting up. If you want to stop the HAP-NodeJS, use 'sudo forever stopall'."
+echo "------------------------------"
+echo "It is recmmended to reboot your Raspberry Pi at this stage."
+read -p "Do you want to do reboot now? [y/n]? " -n 1 -r
+echo 
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    sudo reboot
+else
+    "Please reboot your Raspberry pi wth the following command when you're ready: 'sudo reboot'."
+fi
