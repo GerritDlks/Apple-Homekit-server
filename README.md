@@ -169,7 +169,7 @@ Firstly, you'll have to create a copy of the example accessory that I've already
 cp /home/pi/HAP-NodeJS/accessories/examples/SonoffMQTT_accessory.js /home/pi/HAP-NodeJS/accessories/SonoffMQTT_accessory.js
 ```  
 To configure the accessory, you almost have to do the same things like you had to do with the [light accessory](#test-installation---pis-onboard-led-as-light-accessory).  
-Open the file '/home/pi/HAP-NodeJS/accessories/SonoffMQTT_accessory.js'. In this file you must edit (at least) these lines:
+Open the file '/home/pi/HAP-NodeJS/accessories/SonoffMQTT_accessory.js'. In this file you must edit (at least) [these](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/accessories/SonoffMQTT_accessory.js#L16) lines:
 - **Line 16**: This will be the name of the accessory.  
 - **Line 17**: This will be the pincode that you'll need to connect to the accessory.  
 - **Line 18**: This must be a unique hexadecimal code (0-9 and A-F), unique for every accessory.  
