@@ -15,13 +15,12 @@ I configured this too on my HAP-NodeJS server, because why not? It's the best ad
     - [Install script](#install-script)
     - [Test installation](#test-installation---pis-onboard-led-as-light-accessory)
     - [Add light accessories](#add-light-accessories)
-
 - [Sonoff devices with HAP-NodeJS server](#sonoff-devices-with-hap-nodejs-server)
     - [What you'll need](#what-youll-need)
-    - [Install Sonoff HAP-NodeJS packages](#install-sonoff-hap-nodejs-packages)
     - [Flash Sonoff](#flash-sonoff)
-    - [Configure accessory](#configure-accessory)
-
+    - [Install Sonoff HAP-NodeJS packages](#install-sonoff-hap-nodejs-packages)
+    - [Configure Sonoff Basic accessory](#configure-sonoff-basic-accessory)
+    - [Send commands directly](#send-commands-directly)
 - [Pi-Hole](#pi-hole)
     - [Install](#install)
     - [Change password](#change-password)
@@ -117,17 +116,83 @@ restartHAP
 # Sonoff devices with HAP-NodeJS server
 
 ## What you'll need
-- programmer
-- Sonoff device
-
-## Install Sonoff HAP-NodeJS packages
-TODO
+For this, you'll need to flash the Sonoff device with a custom firmware. The programmer that you'll need is a USB to TTL Serial Adapter. I bought mine on eBay](http://www.benl.ebay.be/itm/262812320376?_trksid=p2057872.m2749.l2649&ssPageName=STRK%3AMEBIDX%3AIT) for about 5 euros.
 
 ## Flash Sonoff
-TODO
 
-## Configure accessory
-TODO
+**Sonoff Tasmota FW**
+To use the Sonoff device, you'll have to flash a [custom firmware](https://github.com/arendst/Sonoff-Tasmota) that provides the Sonoff device with Web, MQTT and OTA functions. To download the necessary files, you can [click here](https://github.com/arendst/Sonoff-Tasmota/archive/master.zip). Be sure to unzip these files and store them somewhere you can find them (I just kept them in my Downloads folder).   
+
+**Atom with PlatformIO IDE**
+Next you'll need to install [Atom](https://atom.io). This is my default text editor on my mac, and I really can recommend it. The advantage of Atom is the ability to install certain packages that extend functionality. We are going to use this ability and we have to install the plugin [PlatformIO IDE](http://platformio.org/get-started/ide?install=atom). With this plugin we'll be able to upload our code the the Sonoff device and start a serial monitor.
+The installation can take a few minutes. Be sure to restart atom when you're finished with the installation.  
+After restarting Atom, you'll be able to create a PlatformIO account, but you can skip this.
+
+**Configure Tasmota FW**  
+In Atom go to 'PlatformIO > Open project folder' and select the folder of the FW that you've downloaded. Normally the name of the folder will be 'Sonoff-Tasmota-master'.  
+The tree view of the project files will appear on the left side of Atom. Unfold the folder 'sonoff' and open the file 'user_config.h'.  
+
+In 'user_config.h' you need to edit line 42 and 43. These lines define 'STA_SSID1' and 'STA_PASS1' which is respectively the SSID of your network (wireless network name) and your WiFi Password. Optionally, you can edit line 44 and 45 too, these lines configure a backup wireless network (if available).  
+You're free to change other settings in this file, the file itself has many comments so everything should be clear. I personally chose to give the device a fixed IP so that all my Sonoff devices are in the same range of my network.   
+
+Once you're done, go to 'File -> Save' to save the 'user_config.h' file.
+
+**Connect the programmer to your Sonoff Device**  
+To connect your programmer to the Sonoff device, you'll have to solder a header on the Sonoff device. There are enough tutorials to find online about how to do this. In the end, your connection between the programmer and the Sonoff switch will be as following:  
+
+|  SONOFF J1  |   PROGRAMMER  |
+|:-----------:|:-------------:|
+| 1 : VCC-3V3 |           3V3 |
+| 2 : E-RX    |           TXD |
+| 3 : E-TX    |           RXD |
+| 4: GND      |           GND |
+| 5 : GPIO14  | Not connected |  
+
+Please be sure that the Sonoff device is not connected to 120V or 230V...  
+Now connect your programmer to your computer using a USB cable.
+
+**Flash the Sonoff with the Tasmota**
+In atom, click on the 'platformio.ini' file (located at the bottom in the tree view), then go to 'PlatformIO -> Upload' to (build and) upload the firmware into the Sonoff device.  
+When the code is successfully loaded into the Sonoff device, go to 'PlatformIO -> Serial monitor' and select your serial device (programmer) in the dropdown list. Then you can set the baudrate to '115200'. Click 'start' to start the serial monitor.  
+When the messages stop appearing, unplug and replug the VCC pin of the Sonoff device (pin 1 in the previous table). This will restart the device.  
+In the logs that appear, you'll now find a log that will look like this:  
+> 00:00:08 HTTP: Webserver active on sonoff-1234.local with IP address 192.168.1.50  
+
+You can now surf to your Sonoff device with your favorite webbrowser. Go to 'sonoff-1234.local' or '192.168.1.50' to open the web interface of the Sonoff device.
+
+## Install Sonoff HAP-NodeJS packages
+To install the Sonoff packages, you have to do absolutely nothing. If you followed this guide, you already have them installed! I included them in the main HAP-NodeJS [installer](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/install%20files/installHAP.sh).
+
+## Configure Sonoff Basic accessory
+Firstly, you'll have to create a copy of the example accessory that I've already installed:  
+```bash
+cp /home/pi/HAP-NodeJS/accessories/examples/SonoffMQTT_accessory.js /home/pi/HAP-NodeJS/accessories/SonoffMQTT_accessory.js
+```  
+To configure the accessory, you almost have to do the same things like you had to do with the [light accessory](#test-installation---pis-onboard-led-as-light-accessory).  
+Open the file '/home/pi/HAP-NodeJS/accessories/SonoffMQTT_accessory.js'. In this file you must edit (at least) these lines:
+- Line 16: This will be the name of the accessory.  
+- Line 17: This will be the pincode that you'll need to connect to the accessory.  
+- Line 18: This must be a unique hexadecimal code (0-9 and A-F), unique for every accessory.  
+- Line 21: This is the name of the Sonoff device that you've configured on the web interface of the Sonoff device (see next paragraph).  
+Save the file and exit.
+
+Secondly, we'll change some settings on the Sonoff's web interface. Open the website of the Sonoff device and then click on 'COnfiguration -> Configure MQTT'. Here we will change 2 things:
+- Host: Enter the static IP of your Raspberry Pi.
+- Topic: Enter a name for the device WITHOUT spaces. (E.g. 'kitchenlights')  
+Click save to save this configuration and restart the device.  
+If you now open 'Console' on the website of the device, you should be able to see the MQTT commands if the device has been connected successfully to the Raspberry Pi.  
+Next go to 'configuration -> Configure other'. Here we will change again 2 things:
+- Friendly name: A friendly name for the device. (E.g. 'Kitchen Lights')
+- Emulation: We select 'Belkin WeMo'.
+Click save to save this configuration.  
+
+Lastly, we go to our raspberry pi and restart the HAP-NodeJS server with the following command:
+```bash
+restartHAP
+```  
+
+## Send commands directly
+This is a quick tip, but you can send commands directly to your Sonoff device from your raspberry pi. For more information on this, check [this wiki](https://github.com/arendst/Sonoff-Tasmota/wiki/Commands).
 
 # Pi-Hole
 
