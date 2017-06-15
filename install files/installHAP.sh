@@ -50,6 +50,24 @@ sudo npm install node-cmd
 # Create Python script folder
 mkdir /home/pi/HAP-NodeJS/python
 
+# Install MQTT (Mosquito) for most of your own Home automation devices like Sonoff switches
+cd /home/pi/HAP-NodeJS
+if ! type mosquitto>/dev/null; then
+      sudo wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+      sudo apt-key add mosquitto-repo.gpg.key
+      cd /etc/apt/sources.list.d/
+      sudo wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
+      sudo apt-get update -y
+      sudo apt-get install mosquitto mosquitto-clients -y
+fi
+cd /home/pi/HAP-NodeJS
+sudo npm install mqtt --save
+
+# Install SonoffMQTT_accessory example
+cd /home/pi/HAP-NodeJS/accessories/
+sudo wget https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/python%20scripts/SonoffMQTT_accessory.js
+clear
+
 # Copy accessories into example folder (so they won't spam your home app)
 mkdir /home/pi/HAP-NodeJS/accessories/examples
 mv /home/pi/HAP-NodeJS/accessories/*js /home/pi/HAP-NodeJS/accessories/examples
@@ -70,7 +88,6 @@ sudo forever start Core.js
   else
       echo "COULD NOT APPEND 'sudo forever start /home/pi/HAP-NodeJS/Core.js' to '/etc/rc.local', before 'exit 0'"
   fi
-
 
 # Create script that will restart HAP-NodeJS
 cd /home/pi/HAP-NodeJS
@@ -100,7 +117,7 @@ echo "HAP-NodeJS will automatically start when your Pi is booting up. If you wan
 echo "------------------------------"
 echo "It is recmmended to reboot your Raspberry Pi at this stage."
 read -p "Do you want to do reboot now? [y/n]? " -n 1 -r
-echo 
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     sudo reboot
