@@ -58,7 +58,7 @@ The python folder will contain all scripts that you want to execute when the sta
 To test your installation, you can configure the onboard LED of your Raspberry Pi as a light accessory. This is also a great way to learn how to use the [example accessories](https://github.com/KhaosT/HAP-NodeJS/tree/master/accessories).  
 To install the LED accessory, execute the following command:
 ```bash
-cd && sudo wget https://goo.gl/JGdV8Z  && sudo sh install_onboardLED_accessorry.sh && rm install_onboardLED_accessorry.sh
+cd && sudo wget https://goo.gl/JGdV8Z  && sudo sh install_onboardLED_accessorry.sh && rm install_onboardLED_accessorry.sh && restartHAP
 ```  
 This will install 2 files:
 - /home/pi/HAP-NodeJS/accessories/[Light_OnBoardLED_accessory.js](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/accessories/Light_OnBoardLED_accessory.js)
@@ -72,10 +72,13 @@ Now you're able to create a light accessory. If you want to create a second ligh
 
 To remove the onboard LED accessory, execute the following command:
 ```bash
-rm /home/pi/HAP-NodeJS/accessories/Light_OnBoardLED_accessory.js /home/pi/HAP-NodeJS/python/onboard-LED.py && echo mmc0 | sudo tee /sys/class/leds/led0/trigger
+rm /home/pi/HAP-NodeJS/accessories/Light_OnBoardLED_accessory.js /home/pi/HAP-NodeJS/python/onboard-LED.py && echo mmc0 | sudo tee /sys/class/leds/led0/trigger && restartHAP
 ```
 
-To remove any other accessory, You can just remove the accessory.js file (and, optionally, the python script).
+To remove any other accessory, You can just remove the accessory.js file (and, optionally, the python script). Be sure to always restart the HAP-NodeJS server by executing the following custom command:
+```bash
+restartHAP
+```
 
 ## Add light accessories
 I included 2 other files:
@@ -83,6 +86,11 @@ I included 2 other files:
 - The [python script](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/python%20scripts/set-GPIO.py) to toggle the GPIO pin.
 
 To use these, just copy the files to the correct folder, change the correct lines in the accessory file, and extra: change [line 13](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/accessories/Light_GPIO_accessory.js#L13) of the accessory file with the GPIO number of the output that you want to control.
+
+ Be sure to always restart the HAP-NodeJS server after changing, removing or adding accessories, by executing the following custom command:
+```bash
+restartHAP
+```
 
 # Sonoff devices with HAP-NodeJS server
 
