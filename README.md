@@ -44,7 +44,7 @@ sudo passwd pi
 ## Install script
 To install HAP-NodeJS, I created a simple script that will do everything for you. Just execute the following line on your Raspberry Pi, lay back and relax. This can take a while (up to 1 hour, maybe).
 ```bash
-curl https://goo.gl/8oN37T | sudo bash
+curl https://goo.gl/8oN37T | bash
 ```
 
 When this completes, HAP-NodeJS will be installed and will be running. There will be 2 folders that you'll update regulary when setting up your Homekit devices:
@@ -58,7 +58,7 @@ The python folder will contain all scripts that you want to execute when the sta
 To test your installation, you can configure the onboard LED of your Raspberry Pi as a light accessory. This is also a great way to learn how to use the [example accessories](https://github.com/KhaosT/HAP-NodeJS/tree/master/accessories).  
 To install the LED accessory, execute the following command:
 ```bash
-curl https://goo.gl/JGdV8Z  | sudo bash
+curl https://goo.gl/JGdV8Z  | bash
 ```  
 This will install 2 files:
 - /home/pi/HAP-NodeJS/accessories/[Light_OnBoardLED_accessory.js](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/accessories/Light_OnBoardLED_accessory.js)
