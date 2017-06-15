@@ -9,6 +9,25 @@ Check out below to see how to use and configure a [Sonoff basic](https://www.ite
 [PiHole](https://github.com/pi-hole/pi-hole) is a multi-platform (android, iOS, Windows, macOS, Linux, ...) system-wide (no need for special software on your devices) ad-blocker.  
 I configured this too on my HAP-NodeJS server, because why not? It's the best ad-blocker out there!
 
+# Table of Contents
+- [Install HAP](#install-hap)
+    - [Prerequisites](#prerequisites)
+    - [Install script](#install-script)
+    - [Test installation](#test-installation---pis-onboard-led-as-light-accessory)
+    - [Add light accessories](#add-light-accessories)
+
+- [Sonoff devices with HAP-NodeJS server](#sonoff-devices-with-hap-nodejs-server)
+    - [What you'll need](#what-youll-need)
+    - [Install Sonoff HAP-NodeJS packages](#install-sonoff-hap-nodejs-packages)
+    - [Flash Sonoff](#flash-sonoff)
+    - [Configure accessory](#configure-accessory)
+
+- [Pi-Hole](#pi-hole)
+    - [Install](#install)
+    - [Change password](#change-password)
+    - [Web interface](#web-interface)
+    - [Configure your devices](#configure-your-devices)
+
 
 
 # Install HAP
