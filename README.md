@@ -46,13 +46,7 @@ To install HAP-NodeJS, I created a simple script that will do everything for you
 ```bash
 curl https://goo.gl/8oN37T | bash
 ```
-*cURLing and Piping To Bash can be dangerous, if you do not trust this, I recommend you to download the file, check its content and then run the installer yourself:*
-```bash
-cd
-cd && sudo wget https://goo.gl/8oN37T
-sudo sh installHAP.sh
-rm installHAP.sh
-```
+*cURLing and Piping To Bash can be dangerous, if you do not trust this, I recommend you to download the file with 'wget', check its content and then run the installer yourself.*
 
 When this completes, HAP-NodeJS will be installed and will be running. There will be 2 folders that you'll update regulary when setting up your Homekit devices:
 - cd /home/pi/HAP-NodeJS/accessories
@@ -67,13 +61,8 @@ To install the LED accessory, execute the following command:
 ```bash
 curl https://goo.gl/JGdV8Z  | bash
 ```
-*cURLing and Piping To Bash can be dangerous, if you do not trust this, I recommend you to download the file, check its content and then run the installer yourself:*
-```bash
-cd
-sudo wget https://goo.gl/JGdV8Z
-sudo sh install_onboardLED_accessorry.sh
-rm install_onboardLED_accessorry.sh
-```
+*cURLing and Piping To Bash can be dangerous, if you do not trust this, I recommend you to download the file with 'wget', check its content and then run the installer yourself.*  
+
 This will install 2 files:
 - /home/pi/HAP-NodeJS/accessories/[Light_OnBoardLED_accessory.js](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/accessories/Light_OnBoardLED_accessory.js)
 - /home/pi/HAP-NodeJS/python/[onboard-LED.py](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/python%20scripts/onboard-LED.py)
