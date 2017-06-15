@@ -58,7 +58,7 @@ The python folder will contain all scripts that you want to execute when the sta
 To test your installation, you can configure the onboard LED of your Raspberry Pi as a light accessory. This is also a great way to learn how to use the [example accessories](https://github.com/KhaosT/HAP-NodeJS/tree/master/accessories).  
 To install the LED accessory, execute the following command:
 ```bash
-cd && sudo wget https://goo.gl/JGdV8Z  && sudo sh install_onboardLED_accessorry.sh && rm install_onboardLED_accessorry.sh && restartHAP
+cd && sudo wget https://goo.gl/JGdV8Z  && sudo sh install_onboardLED_accessorry.sh && rm install_onboardLED_accessorry.sh
 ```  
 This will install 2 files:
 - /home/pi/HAP-NodeJS/accessories/[Light_OnBoardLED_accessory.js](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/accessories/Light_OnBoardLED_accessory.js)
