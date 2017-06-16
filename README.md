@@ -33,15 +33,15 @@ I configured this too on my HAP-NodeJS server, because why not? It's the best ad
 ## Prerequisites
 Before you can start your installation of a HAP-NodeJS server, you first need to [preconfigure]() your Raspberry Pi:  
 
-**OS**  
+#### OS 
 I use [raspbian Jessie Lite](https://downloads.raspberrypi.org/raspbian_lite_latest). The Lite version because we don't need a graphical desktop. If you're on a mac but don't really know how to flash to OS on your SD card, then I can recommend [Etcher](https://etcher.io).  
 When you boot your Raspberry Pi, it will have a user named 'pi'
 
-**internet access**  
+#### internet access  
 Preferred way is connecting your Raspberry Pi using ethernet and giving it a fixed IP address.  
 If you do not know how to set a fixed IP address using CLI, than you can take a look on how [I did it](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/install%20files/prerequisites.sh#L20).  
 
-**Expand file system, enable SSH access**  
+#### Expand file system, enable SSH access  
 This is necessary if you want to connect to your Pi when it's tucked away somewhere with limited physical access.  
 You can do both things using the raspi-config configuration window:  
 ```bash
@@ -53,7 +53,7 @@ Now you can SSH into your Raspberry pi (change IP address with your own static I
 ssh pi@192.168.1.10
 ```  
 
-**Change password for user 'pi'**
+#### Change password for user 'pi'
 It's recommended to change the default password for the user 'pi' on your raspberry pi.  This can be easily done by using the following command, it will ask you for a new password.  
 ```bash
 sudo passwd pi
@@ -169,14 +169,14 @@ Firstly, you'll have to create a copy of the example accessory that I've already
 cp /home/pi/HAP-NodeJS/accessories/examples/SonoffMQTT_accessory.js /home/pi/HAP-NodeJS/accessories/SonoffMQTT_accessory.js
 ```  
 To configure the accessory, you almost have to do the same things like you had to do with the [light accessory](#test-installation---pis-onboard-led-as-light-accessory).  
-Open the file '/home/pi/HAP-NodeJS/accessories/SonoffMQTT_accessory.js'. In this file you must edit (at least) [these](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/accessories/SonoffMQTT_accessory.js#L16) lines:
+Open the file '/home/pi/HAP-NodeJS/accessories/SonoffMQTT_accessory.js'. In [this file](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/accessories/SonoffMQTT_accessory.js#L16) you must edit (at least) these lines:
 - **Line 16**: This will be the name of the accessory.  
 - **Line 17**: This will be the pincode that you'll need to connect to the accessory.  
 - **Line 18**: This must be a unique hexadecimal code (0-9 and A-F), unique for every accessory.  
 - **Line 21**: This is the name of the Sonoff device that you've configured on the web interface of the Sonoff device (see next paragraph).  
 Save the file and exit.
 
-Secondly, we'll change some settings on the Sonoff's web interface. Open the website of the Sonoff device and then click on 'COnfiguration -> Configure MQTT'. Here we will change 2 things:
+Secondly, we'll change some settings on the Sonoff's web interface. Open the website of the Sonoff device and then click on 'Configuration -> Configure MQTT'. Here we will change 2 things:
 - **Host**: Enter the static IP of your Raspberry Pi.
 - **Topic**: Enter a name for the device WITHOUT spaces. (E.g. 'kitchenlights')  
 Click save to save this configuration and restart the device.  
