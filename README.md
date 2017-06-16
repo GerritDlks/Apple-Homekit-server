@@ -54,7 +54,7 @@ sudo passwd pi
 ```  
 
 ## Install script
-To install HAP-NodeJS, I created a simple script that will do everything for you. Just execute the following line on your Raspberry Pi, lay back and relax. This can take a while (up to 1 hour, maybe).
+To install HAP-NodeJS, I created a simple script that will do everything for you. Just execute the following line on your Raspberry Pi, lay back and relax. This can take a while (up to 1 hour, maybe even longer...).
 ```bash
 curl https://goo.gl/8oN37T | bash
 ```
