@@ -14,7 +14,7 @@ var mqttMSG = false;
 // *****************************************************************************
 // Homekit settings
 var name = "Sonoff Outlet";                   // Name of accessory
-var pincode = "999-99-999",                   // Pincode used for initialisation in the app
+var pincode = "999-99-999";                   // Pincode used for initialisation in the app
 var sonoffUsername = "1A:2B:3C:4D:5E:FF";     // MAC like address used by HomeKit to differentiate accessories (must be UNIQUE)
 
 // MQTT settings
