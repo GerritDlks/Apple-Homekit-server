@@ -89,9 +89,8 @@ sudo forever start Core.js
   fi
 
 # Create script that will restart HAP-NodeJS
-echo "cd /home/pi/HAP-NodeJS" | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
-echo "sudo forever stopall" | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
-echo "sudo forever /home/pi/HAP-NodeJS/start Core.js" | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
+echo "cd /home/pi/HAP-NodeJS/ && sudo forever stopall" | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
+echo "cd /home/pi/HAP-NodeJS/ && sudo forever start Core.js " | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
 sudo chmod 777 /home/pi/HAP-NodeJS/startHAP.sh
 sudo chmod +x /home/pi/HAP-NodeJS/startHAP.sh
 
@@ -104,8 +103,8 @@ sudo crontab mycron
 sudo rm -f mycron
 
 # Create aliasses to start, stop and restart HAP-NodeJS
-echo 'alias startHAP="sudo forever start /home/pi/HAP-NodeJS/Core.js"' >> ~/.bashrc
-echo 'alias stopHAP="sudo forever stopall"' >> ~/.bashrc
+echo 'alias startHAP="cd /home/pi/HAP-NodeJS/ && sudo forever start Core.js"' >> ~/.bashrc
+echo 'alias stopHAP="cd /home/pi/HAP-NodeJS/ && sudo forever stopall"' >> ~/.bashrc
 echo 'alias restartHAP="/home/pi/HAP-NodeJS/startHAP.sh"' >> ~/.bashrc
 source ~/.bashrc
 
