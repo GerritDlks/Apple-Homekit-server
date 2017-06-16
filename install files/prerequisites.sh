@@ -19,6 +19,12 @@ sudo raspi-config
 # 4
 # Connect to your WiFi (or ethernet) and give your pi a static IP
 
+# NOTE
+# According to the following site, you can do this more convenient:
+# https://raspberrypi.stackexchange.com/a/52012
+# I have not yet tested this, will update in future
+
+
 # edit WPA supplicant configuration file
 Sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
@@ -29,30 +35,18 @@ update_config=1
 network={
         ssid="ssid_name_here"
         psk="password_here"
-        id_str="kevin_home"
 }
 
-# edit network interfaces file:
-sudo nano /etc/network/interfaces
+# edit dhcpcd.conf file:
+sudo nano /etc/dhcpcd.conf
 
-# Content will be something like this (for WiFi)
-# For ethernet: remove line 43 and change 'wlan0' to 'eth0' on line 48
-auto lo
+# Append your settings to the end of the file ans save it
+# For ethernet: change 'wlan0' to 'eth0' on line 45
+interface eth0
+static ip_address=192.168.1.200
+static routers=192.168.1.1
+static domain_name_servers=192.168.1.1
 
-iface lo inet loopback
-iface eth0 inet dhcp
-
-allow-hotplug wlan0
-auto wlan0
-iface wlan0 inet manual
-    wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
-
-iface kevin_home inet static
-address 192.168.1.200
-netmask 255.255.255.0
-gateway 192.168.1.1
-
-iface default inet dhcp
 
 # reboot
 sudo reboot
