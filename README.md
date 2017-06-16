@@ -31,7 +31,7 @@ I configured this too on my HAP-NodeJS server, because why not? It's the best ad
 
 # Install HAP
 ## Prerequisites
-Before you can start your installation of a HAP-NodeJS server, you first need to [preconfigure]() your Raspberry Pi:  
+Before you can start your installation of a HAP-NodeJS server, you first need to [preconfigure](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/install%20files/prerequisites.sh) your Raspberry Pi:  
 
 #### OS 
 I use [raspbian Jessie Lite](https://downloads.raspberrypi.org/raspbian_lite_latest). The Lite version because we don't need a graphical desktop. If you're on a mac but don't really know how to flash to OS on your SD card, then I can recommend [Etcher](https://etcher.io).  
