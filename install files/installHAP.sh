@@ -32,7 +32,6 @@ rm -rf node-v6.9.5-linux-armv6l.tar.xz node-v6.9.5-linux-armv6l
 
  # install packages
 sudo apt-get install git git-core libavahi-compat-libdnssd-dev libnss-mdns -y
-sudo npm install forever -g
 
 # Install HAP-nodeJS
 # https://github.com/KhaosT/HAP-NodeJS
@@ -48,7 +47,7 @@ sudo npm install
 sudo npm install node-cmd
 
 # Create Python script folder
-mkdir /home/pi/HAP-NodeJS/python
+sudo mkdir /home/pi/HAP-NodeJS/python
 
 # Install MQTT (Mosquito) for most of your own Home automation devices like Sonoff switches
 cd /home/pi/HAP-NodeJS
@@ -65,15 +64,15 @@ sudo npm install mqtt --save
 
 # Install SonoffMQTT_accessory example
 cd /home/pi/HAP-NodeJS/accessories/
-sudo wget https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/python%20scripts/SonoffMQTT_accessory.js
-clear
+sudo wget https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js
 
 # Copy accessories into example folder (so they won't spam your home app)
-mkdir /home/pi/HAP-NodeJS/accessories/examples
-mv /home/pi/HAP-NodeJS/accessories/*js /home/pi/HAP-NodeJS/accessories/examples
+sudo mkdir /home/pi/HAP-NodeJS/accessories/examples
+sudo mv /home/pi/HAP-NodeJS/accessories/*js /home/pi/HAP-NodeJS/accessories/examples
 
 # Start HAP-NodeJS
 cd /home/pi/HAP-NodeJS
+sudo npm install forever -g
 sudo forever start Core.js
 
 # Autmoatically start at boot
@@ -90,10 +89,8 @@ sudo forever start Core.js
   fi
 
 # Create script that will restart HAP-NodeJS
-cd /home/pi/HAP-NodeJS
-echo "sudo forever stopall" >> /home/pi/HAP-NodeJS/startHAP.sh
-echo "cd /home/pi/HAP-NodeJS" >> /home/pi/HAP-NodeJS/startHAP.sh
-echo "sudo forever start Core.sh" >> /home/pi/HAP-NodeJS/startHAP.sh
+echo "cd /home/pi/HAP-NodeJS/ && sudo forever stopall" | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
+echo "cd /home/pi/HAP-NodeJS/ && sudo forever start Core.js " | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
 sudo chmod 777 /home/pi/HAP-NodeJS/startHAP.sh
 sudo chmod +x /home/pi/HAP-NodeJS/startHAP.sh
 
@@ -106,21 +103,20 @@ sudo crontab mycron
 sudo rm -f mycron
 
 # Create aliasses to start, stop and restart HAP-NodeJS
-echo 'alias startHAP="sudo forever start /home/pi/HAP-NodeJS/Core.js"' >> ~/.bashrc
-echo 'alias stopHAP="sudo forever stopall"' >> ~/.bashrc
+echo 'alias startHAP="cd /home/pi/HAP-NodeJS/ && sudo forever start Core.js"' >> ~/.bashrc
+echo 'alias stopHAP="cd /home/pi/HAP-NodeJS/ && sudo forever stopall"' >> ~/.bashrc
 echo 'alias restartHAP="/home/pi/HAP-NodeJS/startHAP.sh"' >> ~/.bashrc
 source ~/.bashrc
 
-echo "------------------------------"
+clear
 echo "If there were no errors, HAP-NodeJS server is installed and on your Pi."
 echo "HAP-NodeJS will automatically start when your Pi is booting up. If you want to stop the HAP-NodeJS, use 'sudo forever stopall'."
 echo "------------------------------"
 echo "It is recmmended to reboot your Raspberry Pi at this stage."
 read -p "Do you want to do reboot now? [y/n]? " -n 1 -r
-echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     sudo reboot
 else
-    "Please reboot your Raspberry pi wth the following command when you're ready: 'sudo reboot'."
+    echo "Please reboot your Raspberry pi wth the following command when you're ready: 'sudo reboot'."
 fi

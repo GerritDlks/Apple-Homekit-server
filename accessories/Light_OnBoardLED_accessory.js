@@ -13,7 +13,7 @@ var uuid = require('../').uuid;
 var LightController = {
   name: "Onboard LED",                  // Name of accessory
   pincode: "999-99-999",                // Pincode used for initialisation in the app
-  username: "FA:3C:ED:5A:1A:1A",        // MAC like address used by HomeKit to differentiate accessories (must be UNIQUE)
+  username: "FA:3C:1E:5A:1A:1A",        // MAC like address used by HomeKit to differentiate accessories (must be UNIQUE)
   manufacturer: "Kevin De Koninck",     // Manufacturer (optional)
   model: "v1.0",                        // Model (optional)
   serialNumber: "A12S345KGB",           // Serial number (optional)
@@ -27,7 +27,7 @@ var LightController = {
     if(this.outputLogs) console.log("Turning the '%s' %s", this.name, status ? "on" : "off");
 
     this.power = status;
-    cmd.run('sudo python /home/pi/HAP-NodeJS/python/onboard-LED.py ' int(status));
+    cmd.run('sudo python /home/pi/HAP-NodeJS/python/onboard-LED.py ' + Number(status));
   },
 
   // GETPOWER function
