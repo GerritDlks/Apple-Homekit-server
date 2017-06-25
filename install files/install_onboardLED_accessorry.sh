@@ -9,4 +9,4 @@ cd /home/pi/HAP-NodeJS/python
 sudo wget https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/python%20scripts/onboard-LED.py
 
 # Restart HAP
-restartHAP
+/home/pi/HAP-NodeJS/startHAP.sh
