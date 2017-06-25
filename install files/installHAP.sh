@@ -113,10 +113,3 @@ echo "If there were no errors, HAP-NodeJS server is installed and on your Pi."
 echo "HAP-NodeJS will automatically start when your Pi is booting up. If you want to stop the HAP-NodeJS, use 'sudo forever stopall'."
 echo "------------------------------"
 echo "It is recmmended to reboot your Raspberry Pi at this stage."
-read -p "Do you want to do reboot now? [y/n]? " -n 1 -r
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    sudo reboot
-else
-    echo "Please reboot your Raspberry pi wth the following command when you're ready: 'sudo reboot'."
-fi
