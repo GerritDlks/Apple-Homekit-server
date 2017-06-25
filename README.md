@@ -56,7 +56,7 @@ sudo passwd pi
 ## Install script
 To install HAP-NodeJS, I created a simple script that will do everything for you. Just execute the following line on your Raspberry Pi, lay back and relax. This can take a while (up to 1 hour, maybe even longer...).
 ```bash
-curl https://goo.gl/8oN37T | bash
+curl -sSL https://goo.gl/8oN37T | bash
 ```
 *cURLing and Piping To Bash can be dangerous, if you do not trust this, I recommend you to download the file with 'wget', check its content and then run the installer yourself.*
 
@@ -71,7 +71,7 @@ The python folder will contain all scripts that you want to execute when the sta
 To test your installation, you can configure the onboard LED of your Raspberry Pi as a light accessory. This is also a great way to learn how to use the [example accessories](https://github.com/KhaosT/HAP-NodeJS/tree/master/accessories).  
 To install the LED accessory, execute the following command:
 ```bash
-curl https://goo.gl/JGdV8Z  | bash
+curl -sSL https://goo.gl/JGdV8Z  | bash
 ```
 *cURLing and Piping To Bash can be dangerous, if you do not trust this, I recommend you to download the file with 'wget', check its content and then run the installer yourself.*  
 
