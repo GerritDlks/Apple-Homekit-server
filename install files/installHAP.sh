@@ -31,7 +31,10 @@ cd
 rm -rf node-v6.9.5-linux-armv6l.tar.xz node-v6.9.5-linux-armv6l
 
  # install packages
-sudo apt-get install git git-core libavahi-compat-libdnssd-dev libnss-mdns -y
+sudo apt-get install git git-core libavahi-compat-libdnssd-dev libnss-mdns vim -y
+
+#get vimrc file
+wget https://gist.githubusercontent.com/Kevin-De-Koninck/5edc9e5d46ebf6a8e3c8b75a98253a76/raw/e0a26db71f21f1bb6827e8503eb631c4db01e742/.vimrc
 
 # Install HAP-nodeJS
 # https://github.com/KhaosT/HAP-NodeJS
