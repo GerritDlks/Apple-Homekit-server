@@ -96,6 +96,12 @@ echo "cd /home/pi/HAP-NodeJS/ && sudo node Core.js &" | sudo tee -a /home/pi/HAP
 sudo chmod 777 /home/pi/HAP-NodeJS/startHAP.sh
 sudo chmod +x /home/pi/HAP-NodeJS/startHAP.sh
 
+#Now get and install the custom accessory installer
+cd /home/pi/HAP-NodeJS/
+wget https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/install%20files/accessoryInstaller.sh
+chmod +x /home/pi/HAP-NodeJS/accessoryInstaller.sh
+
+
 # execute the script every day and keep the pi busy (ping every 5 minutes) so it doesn't slack over time
 cd
 sudo crontab -l > mycron
@@ -106,6 +112,7 @@ sudo rm -f mycron
 
 # Create aliasses to start, stop and restart HAP-NodeJS
 echo 'alias restartHAP="/home/pi/HAP-NodeJS/startHAP.sh"' >> ~/.bashrc
+echo 'alias accessoryInstaller="/home/pi/HAP-NodeJS/accessoryInstaller.sh"' >> ~/.bashrc
 source ~/.bashrc
 
 clear
