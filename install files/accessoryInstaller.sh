@@ -106,3 +106,73 @@ if [ $SER_LEN -le 0 ]; then
 else
     whiptail --title "Accessory serial number (optional)" --msgbox "\n\nThe selected name is:\n $SER" ${r} ${c}
 fi
+
+
+
+#Ask if it is a lamp, a power point, or a raspberry pi pin that they want to toggle
+numberOfOptions=2
+DEVICE_KIND=$(whiptail --title "Test Menu Dialog" --menu "Choose your option" ${r} ${c} ${numberOfOptions} \
+"1" "Sonoff switch" \
+"2" "Raspberry Pi GPIO pin" 3>&1 1>&2 2>&3)
+
+# create temp folder
+rm -rf /home/pi/HAP-NodeJS/accessories/temp > /dev/null
+mkdir /home/pi/HAP-NodeJS/accessories/temp
+cd /home/pi/HAP-NodeJS/accessories/temp
+
+
+exitstatus=$?
+if [ $exitstatus != 0 ]; then
+    exit 1
+fi
+
+if [ $DEVICE_KIND == "Sonoff switch" ]; then
+  # Download file with wget to temp folder
+  wget -O tempFile.js http://...
+
+fi
+
+if [ $DEVICE_KIND == "Raspberry Pi GPIO pin" ]; then
+    # Download file with wget to temp folder
+    wget -O tempFile.js http://...
+
+    # Ask a pin number
+    GPIONR=$(whiptail --inputbox "\n\nWhat's the number of the pi's GPIO that you want to control?" ${r} ${c} "16" --title "Pi's GPIO number" 3>&1 1>&2 2>&3)
+    exitstatus=$?
+    if [ $exitstatus != 0 ]; then
+        exit 1
+    fi
+
+    # Check if number
+    regex='^[0-9]+$'
+    if ! [[ $GPIONR =~ $regex ]] ; then
+       echo "The GPIO number must be a number... Exiting"
+       exit 1
+    fi
+
+    #Use sed to change content of file
+    sed -i '19s/.*/name: "$NAME",/' tempFile.js               #number = line number
+    sed -i '20s/.*/pincode: "$PIN",/' tempFile.js
+    sed -i '21s/.*/username: "$USERNAME",/' tempFile.js
+    sed -i '22s/.*/manufacturer: "$MANU_NAME",/' tempFile.js
+    sed -i '23s/.*/model: "$VERSION",/' tempFile.js
+    sed -i '24s/.*/serialNumber: "$SER",/' tempFile.js
+
+    sed -i '13s/.*/var pinNr = $GPIONR;/' tempFile.js
+fi
+
+
+# remove spaces from name to use as name for file
+NAME_SPACELESS="${NAME// /}"
+
+# Move accessory
+mv tempFile /home/pi/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME}_accessory.js
+
+
+# Remove temp folder
+rm -rf /home/pi/HAP-NodeJS/accessories/temp > /dev/null
+
+
+# Show info about how to add correct device on home app + show pincode and name
+# also tell how to change type of device (lights, power point, fan, ...)
+# also show command to remove accessory file
