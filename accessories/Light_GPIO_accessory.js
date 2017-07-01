@@ -32,7 +32,7 @@ var LightController = {
     if(this.outputLogs) console.log("Turning the '%s' %s", this.name, status ? "on" : "off");
 
     this.power = status;
-    cmd.run('sudo python /home/pi/HAP-NodeJS/python/set-GPIO.py ' int(pinNr), int(status));
+    cmd.run('sudo python ~/HAP-NodeJS/python/set-GPIO.py ' int(pinNr), int(status));
   },
 
   // GETPOWER function

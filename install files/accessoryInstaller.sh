@@ -116,9 +116,9 @@ DEVICE_KIND=$(whiptail --title "Test Menu Dialog" --menu "Choose your option" ${
 "2" "Raspberry Pi GPIO pin" 3>&1 1>&2 2>&3)
 
 # create temp folder
-rm -rf /home/pi/HAP-NodeJS/accessories/temp > /dev/null
-mkdir /home/pi/HAP-NodeJS/accessories/temp
-cd /home/pi/HAP-NodeJS/accessories/temp
+rm -rf ~/HAP-NodeJS/accessories/temp > /dev/null
+mkdir ~/HAP-NodeJS/accessories/temp
+cd ~/HAP-NodeJS/accessories/temp
 
 
 exitstatus=$?
@@ -166,11 +166,11 @@ fi
 NAME_SPACELESS="${NAME// /}"
 
 # Move accessory
-mv tempFile /home/pi/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME}_accessory.js
+mv tempFile ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME}_accessory.js
 
 
 # Remove temp folder
-rm -rf /home/pi/HAP-NodeJS/accessories/temp > /dev/null
+rm -rf ~/HAP-NodeJS/accessories/temp > /dev/null
 
 
 # Show info about how to add correct device on home app + show pincode and name
