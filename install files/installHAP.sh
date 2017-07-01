@@ -38,7 +38,7 @@ wget https://gist.githubusercontent.com/Kevin-De-Koninck/5edc9e5d46ebf6a8e3c8b75
 
 # Install HAP-nodeJS
 # https://github.com/KhaosT/HAP-NodeJS
-cd /home/pi
+cd ~
 sudo apt-get remove nodejs nodejs-legacy -y
 sudo wget http://node-arm.herokuapp.com/node_latest_armhf.deb
 sudo dpkg -i node_latest_armhf.deb
@@ -50,10 +50,10 @@ sudo npm install
 sudo npm install node-cmd
 
 # Create Python script folder
-sudo mkdir /home/pi/HAP-NodeJS/python
+sudo mkdir ~/HAP-NodeJS/python
 
 # Install MQTT (Mosquito) for most of your own Home automation devices like Sonoff switches
-cd /home/pi/HAP-NodeJS
+cd ~/HAP-NodeJS
 if ! type mosquitto>/dev/null; then
       sudo wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
       sudo apt-key add mosquitto-repo.gpg.key
@@ -62,19 +62,19 @@ if ! type mosquitto>/dev/null; then
       sudo apt-get update -y
       sudo apt-get install mosquitto mosquitto-clients -y
 fi
-cd /home/pi/HAP-NodeJS
+cd ~/HAP-NodeJS
 sudo npm install mqtt --save
 
 # Install SonoffMQTT_accessory example
-cd /home/pi/HAP-NodeJS/accessories/
+cd ~/HAP-NodeJS/accessories/
 sudo wget https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js
 
 # Copy accessories into example folder (so they won't spam your home app)
-sudo mkdir /home/pi/HAP-NodeJS/accessories/examples
-sudo mv /home/pi/HAP-NodeJS/accessories/*js /home/pi/HAP-NodeJS/accessories/examples
+sudo mkdir ~/HAP-NodeJS/accessories/examples
+sudo mv ~/HAP-NodeJS/accessories/*js ~/HAP-NodeJS/accessories/examples
 
 # Start HAP-NodeJS
-cd /home/pi/HAP-NodeJS
+cd ~/HAP-NodeJS
 sudo npm install forever -g
 sudo forever start Core.js
 
@@ -86,36 +86,36 @@ sudo forever start Core.js
 
   # Check if 'exit 0' is on the last line, if so, insert line before, else echo error
   if tail -n1 /etc/rc.local | grep -q exit; then
-      sudo sed -i -e '$i sudo forever start /home/pi/HAP-NodeJS/Core.js \n' /etc/rc.local
+      sudo sed -i -e '$i sudo forever start ~/HAP-NodeJS/Core.js \n' /etc/rc.local
   else
-      echo "COULD NOT APPEND 'sudo forever start /home/pi/HAP-NodeJS/Core.js' to '/etc/rc.local', before 'exit 0'"
+      echo "COULD NOT APPEND 'sudo forever start ~/HAP-NodeJS/Core.js' to '/etc/rc.local', before 'exit 0'"
   fi
 
 # Create script that will restart HAP-NodeJS
-echo "cd /home/pi/HAP-NodeJS/ && sudo forever stopall" | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
-echo "cd /home/pi/HAP-NodeJS/ && sudo forever start Core.js " | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
-sudo chmod 777 /home/pi/HAP-NodeJS/startHAP.sh
-sudo chmod +x /home/pi/HAP-NodeJS/startHAP.sh
+echo "cd ~/HAP-NodeJS/ && sudo forever stopall" | sudo tee -a ~/HAP-NodeJS/startHAP.sh > /dev/null
+echo "cd ~/HAP-NodeJS/ && sudo forever start Core.js " | sudo tee -a ~/HAP-NodeJS/startHAP.sh > /dev/null
+sudo chmod 777 ~/HAP-NodeJS/startHAP.sh
+sudo chmod +x ~/HAP-NodeJS/startHAP.sh
 
 #Now get and install the custom accessory installer
-cd /home/pi/HAP-NodeJS/
+cd ~/HAP-NodeJS/
 wget https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/install%20files/accessoryInstaller.sh
-chmod +x /home/pi/HAP-NodeJS/accessoryInstaller.sh
+chmod +x ~/HAP-NodeJS/accessoryInstaller.sh
 
 
 # execute the script every day and keep the pi busy (ping every 5 minutes) so it doesn't slack over time
 cd
 sudo crontab -l > mycron
-echo "@daily /home/pi/HAP-NodeJS/startHAP.sh" >> mycron
+echo "@daily ~/HAP-NodeJS/startHAP.sh" >> mycron
 echo "*/5 * * * * ping -c 5 google.com" >> mycron
 sudo crontab mycron
 sudo rm -f mycron
 
 # Create aliasses to start, stop and restart HAP-NodeJS
-echo 'alias startHAP="cd /home/pi/HAP-NodeJS/ && sudo forever start Core.js"' >> ~/.bashrc
-echo 'alias stopHAP="cd /home/pi/HAP-NodeJS/ && sudo forever stopall"' >> ~/.bashrc
-echo 'alias restartHAP="/home/pi/HAP-NodeJS/startHAP.sh"' >> ~/.bashrc
-echo 'alias accessoryInstaller="/home/pi/HAP-NodeJS/accessoryInstaller.sh"' >> ~/.bashrc
+echo 'alias startHAP="cd ~/HAP-NodeJS/ && sudo forever start Core.js"' >> ~/.bashrc
+echo 'alias stopHAP="cd ~/HAP-NodeJS/ && sudo forever stopall"' >> ~/.bashrc
+echo 'alias restartHAP="~/HAP-NodeJS/startHAP.sh"' >> ~/.bashrc
+echo 'alias accessoryInstaller="~/HAP-NodeJS/accessoryInstaller.sh"' >> ~/.bashrc
 source ~/.bashrc
 
 clear
