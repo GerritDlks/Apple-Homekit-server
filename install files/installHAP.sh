@@ -75,7 +75,8 @@ sudo mv /home/pi/HAP-NodeJS/accessories/*js /home/pi/HAP-NodeJS/accessories/exam
 
 # Start HAP-NodeJS
 cd /home/pi/HAP-NodeJS
-sudo node Core.js &
+sudo npm install forever -g
+sudo forever start Core.js
 
 # Autmoatically start at boot
   #remove trailing white lines
@@ -85,14 +86,14 @@ sudo node Core.js &
 
   # Check if 'exit 0' is on the last line, if so, insert line before, else echo error
   if tail -n1 /etc/rc.local | grep -q exit; then
-      sudo sed -i -e '$i cd /home/pi/HAP-NodeJS/ && sudo node Core.js &' /etc/rc.local
+      sudo sed -i -e '$i sudo forever start /home/pi/HAP-NodeJS/Core.js \n' /etc/rc.local
   else
-      echo "COULD NOT APPEND to '/etc/rc.local', before 'exit 0'"
+      echo "COULD NOT APPEND 'sudo forever start /home/pi/HAP-NodeJS/Core.js' to '/etc/rc.local', before 'exit 0'"
   fi
 
 # Create script that will restart HAP-NodeJS
-echo "cd /home/pi/HAP-NodeJS/ && sudo killall node" | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
-echo "cd /home/pi/HAP-NodeJS/ && sudo node Core.js &" | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
+echo "cd /home/pi/HAP-NodeJS/ && sudo forever stopall" | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
+echo "cd /home/pi/HAP-NodeJS/ && sudo forever start Core.js " | sudo tee -a /home/pi/HAP-NodeJS/startHAP.sh > /dev/null
 sudo chmod 777 /home/pi/HAP-NodeJS/startHAP.sh
 sudo chmod +x /home/pi/HAP-NodeJS/startHAP.sh
 
@@ -111,6 +112,8 @@ sudo crontab mycron
 sudo rm -f mycron
 
 # Create aliasses to start, stop and restart HAP-NodeJS
+echo 'alias startHAP="cd /home/pi/HAP-NodeJS/ && sudo forever start Core.js"' >> ~/.bashrc
+echo 'alias stopHAP="cd /home/pi/HAP-NodeJS/ && sudo forever stopall"' >> ~/.bashrc
 echo 'alias restartHAP="/home/pi/HAP-NodeJS/startHAP.sh"' >> ~/.bashrc
 echo 'alias accessoryInstaller="/home/pi/HAP-NodeJS/accessoryInstaller.sh"' >> ~/.bashrc
 source ~/.bashrc
