@@ -13,7 +13,7 @@ pihole -b cdn.adfront.org tag.medialytics.com med.heyzap.com notify.bugsnag.com 
 # echo "" | sudo tee /etc/pihole/whitelist.txt > /dev/null
 # pihole -g
 
-pihole -w raw.githubusercontent.com mirror1.malwaredomains.com sysctl.org zeustracker.abuse.ch s3.amazonaws.com hosts-file.net spclient.wg.spotify.com udm.scorecardresearch.com analytics.twitter.com
+pihole -w raw.githubusercontent.com mirror1.malwaredomains.com sysctl.org zeustracker.abuse.ch s3.amazonaws.com hosts-file.net spclient.wg.spotify.com udm.scorecardresearch.com analytics.twitter.com thepiratebay.org
 
 
 # ##############################################
