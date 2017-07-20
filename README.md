@@ -18,7 +18,7 @@ I configured this too on my HAP-NodeJS server, because why not? It's the best ad
 - [Sonoff](#sonoff-devices-with-hap-nodejs-server)
     - [What you'll need](#what-youll-need)
     - [Flash Sonoff](#flash-sonoff)
-    - [Install Sonoff HAP-NodeJS packages](#install-Sonoff-hap-nodejs-packages)
+    - [Install Sonoff HAP-NodeJS packages](#install-sonoff-hap-nodejs-packages)
     - [Configure Sonoff Basic accessory](#configure-sonoff-basic-accessory)
 - [Pi-Hole](#pi-hole)
     - [Install](#install)
