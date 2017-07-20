@@ -33,7 +33,7 @@ I configured this too on my HAP-NodeJS server, because why not? It's the best ad
 ## Prerequisites
 Before you can start your installation of a HAP-NodeJS server, you first need to [preconfigure](https://github.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/blob/master/install%20files/prerequisites.sh) your Raspberry Pi:  
 
-#### OS 
+#### OS
 I use [raspbian Jessie Lite](https://downloads.raspberrypi.org/raspbian_lite_latest). The Lite version because we don't need a graphical desktop. If you're on a mac but don't really know how to flash to OS on your SD card, then I can recommend [Etcher](https://etcher.io).  
 When you boot your Raspberry Pi, it will have a user named 'pi'
 
@@ -116,7 +116,7 @@ restartHAP
 # Sonoff devices with HAP-NodeJS server
 
 ## What you'll need
-For this, you'll need to flash the Sonoff device with a custom firmware. The programmer that you'll need is a USB to TTL Serial Adapter. I bought mine on eBay](http://www.benl.ebay.be/itm/262812320376?_trksid=p2057872.m2749.l2649&ssPageName=STRK%3AMEBIDX%3AIT) for about 5 euros.
+For this, you'll need to flash the Sonoff device with a custom firmware. The programmer that you'll need is a USB to TTL Serial Adapter. I bought mine on [eBay](http://www.benl.ebay.be/itm/262812320376?_trksid=p2057872.m2749.l2649&ssPageName=STRK%3AMEBIDX%3AIT) for about 5 euros.
 
 ## Flash Sonoff
 
@@ -149,7 +149,7 @@ To connect your programmer to the Sonoff device, you'll have to solder a header 
 | 5 : GPIO14  | Not connected |  
 
 Please be sure that the Sonoff device is not connected to 120V or 230V...  
-Now connect your programmer to your computer using a USB cable.
+Now connect your programmer to your computer using a USB cable AND press the button on the Sonoff device when plugging in to enable write mode.
 
 #### Flash the Sonoff with the Tasmota  
 In atom, click on the 'platformio.ini' file (located at the bottom in the tree view), then go to 'PlatformIO -> Upload' to (build and) upload the firmware into the Sonoff device.  
@@ -179,6 +179,8 @@ Save the file and exit.
 Secondly, we'll change some settings on the Sonoff's web interface. Open the website of the Sonoff device and then click on 'Configuration -> Configure MQTT'. Here we will change 2 things:
 - **Host**: Enter the static IP of your Raspberry Pi.
 - **Topic**: Enter a name for the device WITHOUT spaces. (E.g. 'kitchenlights')  
+
+
 Click save to save this configuration and restart the device.  
 If you now open 'Console' on the website of the device, you should be able to see the MQTT commands if the device has been connected successfully to the Raspberry Pi.  
 Next go to 'configuration -> Configure other'. Here we will change again 2 things:
