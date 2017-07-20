@@ -19,12 +19,6 @@ sudo raspi-config
 # 4
 # Connect to your WiFi (or ethernet) and give your pi a static IP
 
-# NOTE
-# According to the following site, you can do this more convenient:
-# https://raspberrypi.stackexchange.com/a/52012
-# I have not yet tested this, will update in future
-
-
 # edit WPA supplicant configuration file
 Sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
 
