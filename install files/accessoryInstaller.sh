@@ -287,4 +287,4 @@ whiptail --title "SUMMARY" --msgbox "The following settings were set using this 
 \n\nPIN:\
 \n    $PIN\
 \n\n\n\nIf you'd want to remove the accessory from your HAP-NodeJS server, execute the following command:\
-\n    rm -f ~/HAP-NodeJS/accessories/$NAME_SPACELESS_$USERNAME_DIGITS_ONLY_accessory.js && restartHAP" ${r} ${c}
+\nrm -f ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS}_ONLY_accessory.js && restartHAP" ${r} ${c}
