@@ -264,12 +264,12 @@ case $DEVICE_KIND in
     ConfigureGPIOAccessory
     ;;
 esac
+# remove spaces from name to use as name for file
+NAME_SPACELESS="${NAME// /}"
+USERNAME_DIGITS_ONLY="${USERNAME//:/}"
 
 {
   echo 55; sleep 0.3;
-  # remove spaces from name to use as name for file
-  NAME_SPACELESS="${NAME// /}"
-  USERNAME_DIGITS_ONLY="${USERNAME//:/}"
 
   # Move accessory
   sudo mv ~/HAP-NodeJS/accessories/tempFile.js ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
@@ -287,4 +287,4 @@ whiptail --title "SUMMARY" --msgbox "The following settings were set using this 
 \n\nPIN:\
 \n    $PIN\
 \n\n\n\nIf you'd want to remove the accessory from your HAP-NodeJS server, execute the following command:\
-\nrm -f ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS}_ONLY_accessory.js && restartHAP" ${r} ${c}
+\nrm -f ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js && restartHAP" ${r} ${c}
