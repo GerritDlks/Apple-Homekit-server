@@ -11,6 +11,11 @@ Then install an accessory (Sonoff or GPIO pin) using the following command:
 accessoryInstaller
 ```
 
+***
+***
+***
+***
+***
 
 # HAP-NodeJS personal setup
 I personally use the [HAP-NodeJS](https://github.com/KhaosT/HAP-NodeJS) server to connect a couple of Sonoff devices to my Apple Home setup. This way I can transform my dumb devices and lighting into smart devices and smart lighting.  
