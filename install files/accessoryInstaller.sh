@@ -151,14 +151,14 @@ if [ $DEVICE_KIND == "Raspberry Pi GPIO pin" ]; then
     fi
 
     #Use sed to change content of file
-    sed -i '19s/.*/name: "$NAME",/' tempFile.js               #number = line number
-    sed -i '20s/.*/pincode: "$PIN",/' tempFile.js
-    sed -i '21s/.*/username: "$USERNAME",/' tempFile.js
-    sed -i '22s/.*/manufacturer: "$MANU_NAME",/' tempFile.js
-    sed -i '23s/.*/model: "$VERSION",/' tempFile.js
-    sed -i '24s/.*/serialNumber: "$SER",/' tempFile.js
+    sed -i "19s/.*/name: \"$NAME\",/" tempFile.js               #number = line number
+    sed -i "20s/.*/pincode: \"$PIN\",/" tempFile.js
+    sed -i "21s/.*/username: \"$USERNAME\",/" tempFile.js
+    sed -i "22s/.*/manufacturer: \"$MANU_NAME\",/" tempFile.js
+    sed -i "23s/.*/model: \"$VERSION\",/" tempFile.js
+    sed -i "24s/.*/serialNumber: \"$SER\",/" tempFile.js
 
-    sed -i '13s/.*/var pinNr = $GPIONR;/' tempFile.js
+    sed -i "13s/.*/var pinNr = $GPIONR;/" tempFile.js
 fi
 
 
