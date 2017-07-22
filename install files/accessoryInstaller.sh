@@ -14,10 +14,8 @@ c=$(( c < 70 ? 70 : c ))
 
 # ------------------------------------------------------------------------------
 
-# create temp folder
-sudo rm -rf ~/HAP-NodeJS/accessories/.temp > /dev/null
-sudo mkdir ~/HAP-NodeJS/accessories/.temp
-cd ~/HAP-NodeJS/accessories/.temp
+# clean up previous stuff that was not cleaned up nicely
+sudo rm -f ~/HAP-NodeJS/accessories/tempFile.js > /dev/null
 
 # ------------------------------------------------------------------------------
 
@@ -259,10 +257,7 @@ NAME_SPACELESS="${NAME// /}"
 USERNAME_DIGITS_ONLY="${USERNAME//:/}"
 
 # Move accessory
-sudo mv tempFile.js ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
-
-# Remove temp folder
-sudo rm -rf ~/HAP-NodeJS/accessories/.temp > /dev/null
+sudo mv ~/HAP-NodeJS/accessories/tempFile.js ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
 
 # Restart the HAP server
 /home/pi/HAP-NodeJS/startHAP.sh
