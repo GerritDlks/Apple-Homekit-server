@@ -48,7 +48,7 @@ function AskName() {
       exit 1
   fi
 
-  whiptail --title "Accessory name" --msgbox "\n\nThe selected name is:\n $NAME" ${r} ${c}
+  # whiptail --title "Accessory name" --msgbox "\n\nThe selected name is:\n $NAME" ${r} ${c}
 }
 
 function AskPIN() {
@@ -69,14 +69,14 @@ function AskPIN() {
   #Add dashes to PIN
   PIN=${PIN:0:3}-${PIN:3:2}-${PIN:5:3}
 
-  whiptail --title "Accessory PIN-code" --msgbox "\n\nThe selected PIN-code is:\n $PIN" ${r} ${c}
+  # whiptail --title "Accessory PIN-code" --msgbox "\n\nThe selected PIN-code is:\n $PIN" ${r} ${c}
 }
 
 function CreateUsername() {
   #Create random username (mac-like address)
   USERNAME=$(printf '%02X:%02X:%02X:%02X:%02X:%02X\n' $[RANDOM%256] $[RANDOM%256] $[RANDOM%256] $[RANDOM%256] $[RANDOM%256] $[RANDOM%256])
 
-  whiptail --title "Accessory username (random MAC-like address)" --msgbox "\n\nThe generated username is:\n $USERNAME\n\nPS: You don't have to worry about this, it's needed internally for Apple Home to be able to work." ${r} ${c}
+  # whiptail --title "Accessory username (random MAC-like address)" --msgbox "\n\nThe generated username is:\n $USERNAME\n\nPS: You don't have to worry about this, it's needed internally for Apple Home to be able to work." ${r} ${c}
 }
 
 function AskManufacturerName() {
@@ -92,8 +92,8 @@ function AskManufacturerName() {
   if [ $MANU_NAME_LEN -le 0 ]; then
       whiptail --title "Accessory name of manufacturer (otional)" --msgbox "\n\nYou did not set a manufacturer's name. No manufacturer's name will be shown." ${r} ${c}
       MANU_NAME=""
-  else
-      whiptail --title "Accessory name of manufacturer (otional)" --msgbox "\n\nThe selected manufaturer's name is:\n $NAME" ${r} ${c}
+  # else
+  #     whiptail --title "Accessory name of manufacturer (otional)" --msgbox "\n\nThe selected manufaturer's name is:\n $NAME" ${r} ${c}
   fi
 }
 
@@ -110,8 +110,8 @@ function AskVersion() {
   if [ $VERSION_LEN -le 0 ]; then
       whiptail --title "Accessory version (otional)" --msgbox "\n\nYou did not set a version number. No version number will be shown." ${r} ${c}
       VERSION=""
-  else
-      whiptail --title "Accessory version (optional)" --msgbox "\n\nThe selected version number is:\n $VERSION" ${r} ${c}
+  # else
+  #     whiptail --title "Accessory version (optional)" --msgbox "\n\nThe selected version number is:\n $VERSION" ${r} ${c}
   fi
 }
 
@@ -128,8 +128,8 @@ function AskSerialNumber() {
   if [ $SER_LEN -le 0 ]; then
       whiptail --title "Accessory serial number (otional)" --msgbox "\n\nYou did not set a serial number. No serial number will be shown." ${r} ${c}
       SER=""
-  else
-      whiptail --title "Accessory serial number (optional)" --msgbox "\n\nThe selected name is:\n $SER" ${r} ${c}
+  # else
+  #     whiptail --title "Accessory serial number (optional)" --msgbox "\n\nThe selected name is:\n $SER" ${r} ${c}
   fi
 }
 
@@ -259,13 +259,13 @@ NAME_SPACELESS="${NAME// /}"
 USERNAME_DIGITS_ONLY="${USERNAME//:/}"
 
 # Move accessory
-sudo mv tempFile ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
+sudo mv tempFile.js ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
 
 # Remove temp folder
-sudo rm -rf ~/HAP-NodeJS/accessories/temp > /dev/
+sudo rm -rf ~/HAP-NodeJS/accessories/.temp > /dev/null
 
 # Restart the HAP server
-./home/pi/HAP-NodeJS/startHAP.sh
+/home/pi/HAP-NodeJS/startHAP.sh
 
 # Show summary
 whiptail --title "SUMMARY" --msgbox "The following settings were set using this installer. Use these settings to find and add your new accessory to the Apple Home app.\
