@@ -194,10 +194,9 @@ function ConfigureGPIOAccessory() {
 
   { echo 0; sleep 1; } | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 
-  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js &> /dev/null
-
   {
     echo 20;
+    sudo wget -O ~/HAP-NodeJS/accessories/tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js &> /dev/null
 
     lineNr=$(grep -n "  name: " tempFile.js | cut -d : -f 1)
     sudo sed -i "$lineNr s/.*/  name: \"$NAME\",/" tempFile.js
@@ -231,10 +230,10 @@ function ConfigureSonoffAccessory() {
 
   { echo 0; sleep 1; } | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 
-  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js &> /dev/null
-
   {
     echo 20;
+    sudo wget -O ~/HAP-NodeJS/accessories/tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js &> /dev/null
+
     lineNr=$(grep -n "var name = " tempFile.js | cut -d : -f 1)
     sudo sed -i "$lineNr s/.*/var name = \"$NAME\";/" tempFile.js
 
@@ -274,6 +273,7 @@ esac
 
   echo 80;
   # Restart the HAP server
+  whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 80
   /home/pi/HAP-NodeJS/startHAP.sh &> /dev/null
 
   echo 99; sleep 0.5; echo 100; sleep 1.5
