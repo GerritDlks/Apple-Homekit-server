@@ -1,5 +1,16 @@
 # Apple Homekit (and PiHole) Server
-This is my personal setup on a raspberry pi of mine. It sets up HAP-NodeJS (HomeKit Accessory Server) and, because why not, it also runs a PiHole server. So it combines my love for home automation with Apple devices and my disgust for adds!
+This is my personal setup on a raspberry pi of mine. It sets up HAP-NodeJS (HomeKit Accessory Server) for Sonoff switches and togling the Raspberry Pi's GPIO pins and, because why not, it also runs a PiHole server. So it combines my love for home automation with Apple devices and my disgust for adds!
+
+# TL;DR
+On a clean Raspberry Pi with a fixed IP, issue the following command to install the server:
+```bash
+curl -sSL https://goo.gl/8oN37T | bash
+```
+Then install an accessory (Sonoff or GPIO pin) using the following command:
+```bash
+accessoryInstaller
+```
+
 
 # HAP-NodeJS personal setup
 I personally use the [HAP-NodeJS](https://github.com/KhaosT/HAP-NodeJS) server to connect a couple of Sonoff devices to my Apple Home setup. This way I can transform my dumb devices and lighting into smart devices and smart lighting.  
@@ -15,6 +26,7 @@ I configured this too on my HAP-NodeJS server, because why not? It's the best ad
     - [Install script](#install-script)
     - [Test installation](#test-installation---pis-onboard-led-as-light-accessory)
     - [Add light accessories](#add-light-accessories)
+- [Accessory installer](#accessory-installer) (very usefull)
 - [Sonoff](#sonoff-devices-with-hap-nodejs-server)
     - [What you'll need](#what-youll-need)
     - [Flash Sonoff](#flash-sonoff)
@@ -111,6 +123,20 @@ To use these, just copy the files to the correct folder, change the correct line
 ```bash
 restartHAP
 ```
+
+# Accessory installer
+
+To add a device easily, without having to change source-code, copying files, etc, I have added an installer that guides you through the installation of everything. This installer is able to create, add and configure 2 accessories:
+- An accessory that toggles a GPIO pin of the raspberry Pi.
+- A Sonoff switch accessory
+
+To run the installer, use the following command:
+```bash
+accessoryInstaller
+```
+
+The installer should be pretty clear, but I want to give you one extra tip:  
+Choose a good name for the accessory (e.g. 'small kitchen lights in the left corner' instead of 'lights'). This will ease your life when removing accessories later.
 
 # Sonoff devices with HAP-NodeJS server
 
