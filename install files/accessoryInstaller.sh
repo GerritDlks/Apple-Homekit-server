@@ -200,26 +200,26 @@ function ConfigureGPIOAccessory() {
     sudo wget -O ~/HAP-NodeJS/accessories/tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js &> /dev/null
     echo 39;
 
-    lineNr=$(grep -n "  name: " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/  name: \"$NAME\",/" tempFile.js
+    lineNr=$(grep -n "  name: " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  name: \"$NAME\",/" ~/HAP-NodeJS/accessories/tempFile.js
 
-    lineNr=$(grep -n "  pincode: " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/  pincode: \"$PIN\",/" tempFile.js
+    lineNr=$(grep -n "  pincode: " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  pincode: \"$PIN\",/" ~/HAP-NodeJS/accessories/tempFile.js
 
-    lineNr=$(grep -n "  username: " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/  username: \"$USERNAME\",/" tempFile.js
+    lineNr=$(grep -n "  username: " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  username: \"$USERNAME\",/" ~/HAP-NodeJS/accessories/tempFile.js
 
-    lineNr=$(grep -n "  manufacturer: " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/  manufacturer: \"$MANU_NAME\",/" tempFile.js
+    lineNr=$(grep -n "  manufacturer: " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  manufacturer: \"$MANU_NAME\",/" ~/HAP-NodeJS/accessories/tempFile.js
 
-    lineNr=$(grep -n "  model: " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/  model: \"$VERSION\",/" tempFile.js
+    lineNr=$(grep -n "  model: " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  model: \"$VERSION\",/" ~/HAP-NodeJS/accessories/tempFile.js
 
-    lineNr=$(grep -n "  serialNumber: " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/  serialNumber: \"$SER\",/" tempFile.js
+    lineNr=$(grep -n "  serialNumber: " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  serialNumber: \"$SER\",/" ~/HAP-NodeJS/accessories/tempFile.js
 
-    lineNr=$(grep -n "var pinNr = " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/var pinNr = $GPIONR;/" tempFile.js
+    lineNr=$(grep -n "var pinNr = " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/var pinNr = $GPIONR;/" ~/HAP-NodeJS/accessories/tempFile.js
   } | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 }
 
@@ -237,17 +237,17 @@ function ConfigureSonoffAccessory() {
     sudo wget -O ~/HAP-NodeJS/accessories/tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js &> /dev/null
     echo 39;
 
-    lineNr=$(grep -n "var name = " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/var name = \"$NAME\";/" tempFile.js
+    lineNr=$(grep -n "var name = " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/var name = \"$NAME\";/" ~/HAP-NodeJS/accessories/tempFile.js
 
-    lineNr=$(grep -n "var pincode = " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/var pincode = \"$PIN\";/" tempFile.js
+    lineNr=$(grep -n "var pincode = " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/var pincode = \"$PIN\";/" ~/HAP-NodeJS/accessories/tempFile.js
 
-    lineNr=$(grep -n "var sonoffUsername = " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/var sonoffUsername = \"$USERNAME\";/" tempFile.js
+    lineNr=$(grep -n "var sonoffUsername = " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/var sonoffUsername = \"$USERNAME\";/" ~/HAP-NodeJS/accessories/tempFile.js
 
-    lineNr=$(grep -n "var MQTT_NAME = " tempFile.js | cut -d : -f 1)
-    sudo sed -i "$lineNr s/.*/var MQTT_NAME = \"$MQTT_NAME\";/" tempFile.js
+    lineNr=$(grep -n "var MQTT_NAME = " ~/HAP-NodeJS/accessories/tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/var MQTT_NAME = \"$MQTT_NAME\";/" ~/HAP-NodeJS/accessories/tempFile.js
     } | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 }
 
