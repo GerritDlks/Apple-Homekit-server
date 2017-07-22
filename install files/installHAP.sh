@@ -99,8 +99,8 @@ sudo chmod +x ~/HAP-NodeJS/startHAP.sh
 
 #Now get and install the custom accessory installer
 cd ~/HAP-NodeJS/
-wget https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/install%20files/accessoryInstaller.sh
-chmod +x ~/HAP-NodeJS/accessoryInstaller.sh
+sudo wget https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/install%20files/accessoryInstaller.sh
+sudo chmod +x ~/HAP-NodeJS/accessoryInstaller.sh
 
 
 # execute the script every day and keep the pi busy (ping every 5 minutes) so it doesn't slack over time
