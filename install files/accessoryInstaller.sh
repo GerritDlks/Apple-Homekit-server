@@ -194,9 +194,10 @@ function ConfigureGPIOAccessory() {
 
   { echo 0; sleep 1; } | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 
+  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js &> /dev/null
+
   {
     echo 20;
-    sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js &> /dev/null
 
     lineNr=$(grep -n "  name: " tempFile.js | cut -d : -f 1)
     sudo sed -i "$lineNr s/.*/  name: \"$NAME\",/" tempFile.js
@@ -230,10 +231,10 @@ function ConfigureSonoffAccessory() {
 
   { echo 0; sleep 1; } | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 
+  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js &> /dev/null
+
   {
     echo 20;
-    sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js &> /dev/null
-
     lineNr=$(grep -n "var name = " tempFile.js | cut -d : -f 1)
     sudo sed -i "$lineNr s/.*/var name = \"$NAME\";/" tempFile.js
 
@@ -267,12 +268,10 @@ esac
   # remove spaces from name to use as name for file
   NAME_SPACELESS="${NAME// /}"
   USERNAME_DIGITS_ONLY="${USERNAME//:/}"
-} | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 
   # Move accessory
   sudo mv ~/HAP-NodeJS/accessories/tempFile.js ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
 
-{
   echo 80;
   # Restart the HAP server
   /home/pi/HAP-NodeJS/startHAP.sh &> /dev/null
