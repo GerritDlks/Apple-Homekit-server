@@ -15,8 +15,8 @@ c=$(( c < 70 ? 70 : c ))
 # ------------------------------------------------------------------------------
 
 # create temp folder
-rm -rf ~/HAP-NodeJS/accessories/.temp > /dev/null
-mkdir ~/HAP-NodeJS/accessories/.temp
+sudo rm -rf ~/HAP-NodeJS/accessories/.temp > /dev/null
+sudo mkdir ~/HAP-NodeJS/accessories/.temp
 cd ~/HAP-NodeJS/accessories/.temp
 
 # ------------------------------------------------------------------------------
@@ -29,8 +29,8 @@ function AskKindOfDevice() {
   #Ask if it is a GPIO pin or Sonoff device that they want to toggle
   numberOfOptions=2
   DEVICE_KIND=$(whiptail --title "What accessory do you want to configure?" --menu "Choose your option" ${r} ${c} ${numberOfOptions} \
-  "Sonoff" "\t\tSonoff switch" \
-  "GPIO" "\t\tRaspberry Pi GPIO pin" 3>&1 1>&2 2>&3)
+  "Sonoff" "     Sonoff switch" \
+  "GPIO" "     Raspberry Pi GPIO pin" 3>&1 1>&2 2>&3)
 }
 
 function AskName() {
@@ -152,13 +152,13 @@ function AskGPIOnr() {
 function ConfigureSonoffViawebinterface() {
   whiptail --title "Configure the Sonoff device" --msgbox "To be able to control the Sonoff device, you must configure it through the web interface after flashing the custom firmware on the Sonoff device.\
 \n\nConfiguration -> Configure MQTT -> Topic:\
-\n\tThis is the topic name for the Sonoff device (e.g.: 'kitchenlights').\n\tThis name can not contain spaces.\n\tAlso, remember this name for the next screen.\
+\n    This is the topic name for the Sonoff device (e.g.: 'kitchenlights').\n    This name can not contain spaces.\n    Also, remember this name for the next screen.\
 \n\nConfiguration -> Configure MQTT -> Host:\
-\n\tThis is the static IP address of your Raspberry Pi (e.g.: '192.168.1.200').\
+\n    This is the static IP address of your Raspberry Pi (e.g.: '192.168.1.200').\
 \n\nconfiguration -> Configure other' -> Friendly name:\
-\n\tThis is a Friendly name for the Sonoff device (e.g.: 'Kitchen lights').\
+\n    This is a Friendly name for the Sonoff device (e.g.: 'Kitchen lights').\
 \n\nconfiguration -> Configure other' -> Emulation:\
-\n\tChoose for 'Belkin Wemo'.\
+\n    Choose for 'Belkin Wemo'.\
 " ${r} ${c}
 }
 
@@ -194,28 +194,28 @@ function ConfigureGPIOAccessory() {
   AskSerialNumber
   AskGPIOnr
 
-  wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js
+  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js
 
   lineNr=$(grep -n "  name: " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/name: \"$NAME\",/" tempFile.js
+  sudo sed -i "$lineNr s/.*/  name: \"$NAME\",/" tempFile.js
 
   lineNr=$(grep -n "  pincode: " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/pincode: \"$PIN\",/" tempFile.js
+  sudo sed -i "$lineNr s/.*/  pincode: \"$PIN\",/" tempFile.js
 
   lineNr=$(grep -n "  username: " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/username: \"$USERNAME\",/" tempFile.js
+  sudo sed -i "$lineNr s/.*/  username: \"$USERNAME\",/" tempFile.js
 
   lineNr=$(grep -n "  manufacturer: " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/manufacturer: \"$MANU_NAME\",/" tempFile.js
+  sudo sed -i "$lineNr s/.*/  manufacturer: \"$MANU_NAME\",/" tempFile.js
 
   lineNr=$(grep -n "  model: " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/model: \"$VERSION\",/" tempFile.js
+  sudo sed -i "$lineNr s/.*/  model: \"$VERSION\",/" tempFile.js
 
   lineNr=$(grep -n "  serialNumber: " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/serialNumber: \"$SER\",/" tempFile.js
+  sudo sed -i "$lineNr s/.*/  serialNumber: \"$SER\",/" tempFile.js
 
-  lineNr=$(grep -n "pinNr = " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/var pinNr = $GPIONR;/" tempFile.js
+  lineNr=$(grep -n "var pinNr = " tempFile.js | cut -d : -f 1)
+  sudo sed -i "$lineNr s/.*/var pinNr = $GPIONR;/" tempFile.js
 }
 
 function ConfigureSonoffAccessory() {
@@ -225,19 +225,19 @@ function ConfigureSonoffAccessory() {
   ConfigureSonoffViawebinterface
   AskMQTTName
 
-  wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js
+  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js
 
   lineNr=$(grep -n "var name = " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/var name = \"$NAME\";/" tempFile.js
+  sudo sed -i "$lineNr s/.*/var name = \"$NAME\";/" tempFile.js
 
   lineNr=$(grep -n "var pincode = " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/var pincode = \"$PIN\";/" tempFile.js
+  sudo sed -i "$lineNr s/.*/var pincode = \"$PIN\";/" tempFile.js
 
   lineNr=$(grep -n "var sonoffUsername = " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/var sonoffUsername = \"$USERNAME\";/" tempFile.js
+  sudo sed -i "$lineNr s/.*/var sonoffUsername = \"$USERNAME\";/" tempFile.js
 
   lineNr=$(grep -n "var MQTT_NAME = " tempFile.js | cut -d : -f 1)
-  sed -i "$lineNrs/.*/var MQTT_NAME = \"$MQTT_NAME\";/" tempFile.js
+  sudo sed -i "$lineNr s/.*/var MQTT_NAME = \"$MQTT_NAME\";/" tempFile.js
 }
 
 # ------------------------------------------------------------------------------
@@ -259,19 +259,19 @@ NAME_SPACELESS="${NAME// /}"
 USERNAME_DIGITS_ONLY="${USERNAME//:/}"
 
 # Move accessory
-mv tempFile ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
+sudo mv tempFile ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
 
 # Remove temp folder
-rm -rf ~/HAP-NodeJS/accessories/temp > /dev/
+sudo rm -rf ~/HAP-NodeJS/accessories/temp > /dev/
 
 # Restart the HAP server
-restartHAP
+./home/pi/HAP-NodeJS/startHAP.sh
 
 # Show summary
 whiptail --title "SUMMARY" --msgbox "The following settings were set using this installer. Use these settings to find and add your new accessory to the Apple Home app.\
 \n\nName:\
-\n\t$NAME\
+\n    $NAME\
 \n\nPIN:\
-\n\t$PIN\
+\n    $PIN\
 \n\n\n\nIf you'd want to remove the accessory from your HAP-NodeJS server, execute the following command:\
-\n\trm -f ~/HAP-NodeJS/accessories/$NAME_SPACELESS_$USERNAME_DIGITS_ONLY_accessory.js && restartHAP" ${r} ${c}
+\n    rm -f ~/HAP-NodeJS/accessories/$NAME_SPACELESS_$USERNAME_DIGITS_ONLY_accessory.js && restartHAP" ${r} ${c}
