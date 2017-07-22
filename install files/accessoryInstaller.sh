@@ -267,10 +267,12 @@ esac
   # remove spaces from name to use as name for file
   NAME_SPACELESS="${NAME// /}"
   USERNAME_DIGITS_ONLY="${USERNAME//:/}"
+} | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 
   # Move accessory
   sudo mv ~/HAP-NodeJS/accessories/tempFile.js ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
 
+{
   echo 80;
   # Restart the HAP server
   /home/pi/HAP-NodeJS/startHAP.sh &> /dev/null
