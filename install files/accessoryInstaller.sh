@@ -178,7 +178,7 @@ function AskMQTTName() {
       exit 1
   fi
 
-  whiptail --title "Accessory name" --msgbox "\n\nThe selected topic name is:\n $NAME" ${r} ${c}
+  # whiptail --title "Accessory name" --msgbox "\n\nThe selected topic name is:\n $NAME" ${r} ${c}
 }
 
 # ------------------------------------------------------------------------------
@@ -192,7 +192,11 @@ function ConfigureGPIOAccessory() {
   AskSerialNumber
   AskGPIOnr
 
-  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js
+  whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 0
+  sleep 1
+
+  whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 20
+  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js &> /dev/null
 
   lineNr=$(grep -n "  name: " tempFile.js | cut -d : -f 1)
   sudo sed -i "$lineNr s/.*/  name: \"$NAME\",/" tempFile.js
@@ -223,7 +227,11 @@ function ConfigureSonoffAccessory() {
   ConfigureSonoffViawebinterface
   AskMQTTName
 
-  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js
+  whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 0
+  sleep 1
+
+  whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 20
+  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js &> /dev/null
 
   lineNr=$(grep -n "var name = " tempFile.js | cut -d : -f 1)
   sudo sed -i "$lineNr s/.*/var name = \"$NAME\";/" tempFile.js
@@ -252,6 +260,8 @@ case $DEVICE_KIND in
     ;;
 esac
 
+whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 55
+
 # remove spaces from name to use as name for file
 NAME_SPACELESS="${NAME// /}"
 USERNAME_DIGITS_ONLY="${USERNAME//:/}"
@@ -260,7 +270,11 @@ USERNAME_DIGITS_ONLY="${USERNAME//:/}"
 sudo mv ~/HAP-NodeJS/accessories/tempFile.js ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
 
 # Restart the HAP server
-/home/pi/HAP-NodeJS/startHAP.sh
+whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 80
+/home/pi/HAP-NodeJS/startHAP.sh &> /dev/null
+
+whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 100
+sleep 1.5
 
 # Show summary
 whiptail --title "SUMMARY" --msgbox "The following settings were set using this installer. Use these settings to find and add your new accessory to the Apple Home app.\
