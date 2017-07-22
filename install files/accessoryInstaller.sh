@@ -192,32 +192,33 @@ function ConfigureGPIOAccessory() {
   AskSerialNumber
   AskGPIOnr
 
-  whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 0
-  sleep 1
+  { echo 0; sleep 1; } | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 
-  whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 20
-  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js &> /dev/null
+  {
+    echo 20;
+    sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/Light_GPIO_accessory.js &> /dev/null
 
-  lineNr=$(grep -n "  name: " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/  name: \"$NAME\",/" tempFile.js
+    lineNr=$(grep -n "  name: " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  name: \"$NAME\",/" tempFile.js
 
-  lineNr=$(grep -n "  pincode: " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/  pincode: \"$PIN\",/" tempFile.js
+    lineNr=$(grep -n "  pincode: " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  pincode: \"$PIN\",/" tempFile.js
 
-  lineNr=$(grep -n "  username: " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/  username: \"$USERNAME\",/" tempFile.js
+    lineNr=$(grep -n "  username: " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  username: \"$USERNAME\",/" tempFile.js
 
-  lineNr=$(grep -n "  manufacturer: " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/  manufacturer: \"$MANU_NAME\",/" tempFile.js
+    lineNr=$(grep -n "  manufacturer: " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  manufacturer: \"$MANU_NAME\",/" tempFile.js
 
-  lineNr=$(grep -n "  model: " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/  model: \"$VERSION\",/" tempFile.js
+    lineNr=$(grep -n "  model: " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  model: \"$VERSION\",/" tempFile.js
 
-  lineNr=$(grep -n "  serialNumber: " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/  serialNumber: \"$SER\",/" tempFile.js
+    lineNr=$(grep -n "  serialNumber: " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/  serialNumber: \"$SER\",/" tempFile.js
 
-  lineNr=$(grep -n "var pinNr = " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/var pinNr = $GPIONR;/" tempFile.js
+    lineNr=$(grep -n "var pinNr = " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/var pinNr = $GPIONR;/" tempFile.js
+  } | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 }
 
 function ConfigureSonoffAccessory() {
@@ -227,23 +228,24 @@ function ConfigureSonoffAccessory() {
   ConfigureSonoffViawebinterface
   AskMQTTName
 
-  whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 0
-  sleep 1
+  { echo 0; sleep 1; } | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 
-  whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 20
-  sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js &> /dev/null
+  {
+    echo 20;
+    sudo wget -O tempFile.js https://raw.githubusercontent.com/Kevin-De-Koninck/Apple-Homekit-and-PiHole-server/master/accessories/SonoffMQTT_accessory.js &> /dev/null
 
-  lineNr=$(grep -n "var name = " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/var name = \"$NAME\";/" tempFile.js
+    lineNr=$(grep -n "var name = " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/var name = \"$NAME\";/" tempFile.js
 
-  lineNr=$(grep -n "var pincode = " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/var pincode = \"$PIN\";/" tempFile.js
+    lineNr=$(grep -n "var pincode = " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/var pincode = \"$PIN\";/" tempFile.js
 
-  lineNr=$(grep -n "var sonoffUsername = " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/var sonoffUsername = \"$USERNAME\";/" tempFile.js
+    lineNr=$(grep -n "var sonoffUsername = " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/var sonoffUsername = \"$USERNAME\";/" tempFile.js
 
-  lineNr=$(grep -n "var MQTT_NAME = " tempFile.js | cut -d : -f 1)
-  sudo sed -i "$lineNr s/.*/var MQTT_NAME = \"$MQTT_NAME\";/" tempFile.js
+    lineNr=$(grep -n "var MQTT_NAME = " tempFile.js | cut -d : -f 1)
+    sudo sed -i "$lineNr s/.*/var MQTT_NAME = \"$MQTT_NAME\";/" tempFile.js
+    } | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 }
 
 # ------------------------------------------------------------------------------
@@ -260,22 +262,21 @@ case $DEVICE_KIND in
     ;;
 esac
 
-whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 55
+{
+  echo 55; sleep 0.3;
+  # remove spaces from name to use as name for file
+  NAME_SPACELESS="${NAME// /}"
+  USERNAME_DIGITS_ONLY="${USERNAME//:/}"
 
-# remove spaces from name to use as name for file
-NAME_SPACELESS="${NAME// /}"
-USERNAME_DIGITS_ONLY="${USERNAME//:/}"
+  # Move accessory
+  sudo mv ~/HAP-NodeJS/accessories/tempFile.js ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
 
-# Move accessory
-sudo mv ~/HAP-NodeJS/accessories/tempFile.js ~/HAP-NodeJS/accessories/${NAME_SPACELESS}_${USERNAME_DIGITS_ONLY}_accessory.js
+  echo 80;
+  # Restart the HAP server
+  /home/pi/HAP-NodeJS/startHAP.sh &> /dev/null
 
-# Restart the HAP server
-whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 80
-/home/pi/HAP-NodeJS/startHAP.sh &> /dev/null
-
-whiptail --title "Please wait" --gauge "Please wait while we are installing everything..." 6 ${c} 100
-sleep 1.5
-
+  echo 99; sleep 0.5; echo 100; sleep 1.5
+} | whiptail --title "Please wait" --gauge "\n\nPlease wait while we are installing everything..." 8 ${c} 0
 # Show summary
 whiptail --title "SUMMARY" --msgbox "The following settings were set using this installer. Use these settings to find and add your new accessory to the Apple Home app.\
 \n\nName:\
