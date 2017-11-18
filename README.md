@@ -171,6 +171,7 @@ To connect your programmer to the Sonoff device, you'll have to solder a header 
 | 4: GND      |           GND |
 | 5 : GPIO14  | Not connected |  
 
+With pin 1 the pin against the switch on the Sonoff device.  
 Please be sure that the Sonoff device is not connected to 120V or 230V...  
 Now connect your programmer to your computer using a USB cable AND press the button on the Sonoff device when plugging in to enable write mode.
 
