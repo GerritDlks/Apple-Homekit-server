@@ -1,5 +1,5 @@
-# Apple Homekit (and PiHole) Server
-This is my personal setup on a raspberry pi of mine. It sets up HAP-NodeJS (HomeKit Accessory Server) for Sonoff switches and togling the Raspberry Pi's GPIO pins and, because why not, it also runs a PiHole server. So it combines my love for home automation with Apple devices and my disgust for adds!
+# Apple Homekit Server
+It sets up HAP-NodeJS (HomeKit Accessory Server) for Sonoff switches and togling the Raspberry Pi's GPIO pins.
 
 # TL;DR
 On a clean Raspberry Pi with a fixed IP, issue the following command to install the server:
@@ -21,9 +21,6 @@ accessoryInstaller
 I personally use the [HAP-NodeJS](https://github.com/KhaosT/HAP-NodeJS) server to connect a couple of Sonoff devices to my Apple Home setup. This way I can transform my dumb devices and lighting into smart devices and smart lighting.  
 Check out below to see how to use and configure a [Sonoff basic](https://www.itead.cc/sonoff-wifi-wireless-switch.html) device to be compatible with HAP!
 
-# PiHole
-[PiHole](https://github.com/pi-hole/pi-hole) is a multi-platform (android, iOS, Windows, macOS, Linux, ...) system-wide (no need for special software on your devices) ad-blocker.  
-I configured this too on my HAP-NodeJS server, because why not? It's the best ad-blocker out there!
 
 # Table of Contents
 - [Install HAP](#install-hap)
@@ -37,11 +34,7 @@ I configured this too on my HAP-NodeJS server, because why not? It's the best ad
     - [Flash Sonoff](#flash-sonoff)
     - [Install Sonoff HAP-NodeJS packages](#install-sonoff-hap-nodejs-packages)
     - [Configure Sonoff Basic accessory](#configure-sonoff-basic-accessory)
-- [Pi-Hole](#pi-hole)
-    - [Install](#install)
-    - [Change password](#change-password)
-    - [Web interface](#web-interface)
-    - [Configure your devices](#configure-your-devices)
+
 
 
 
@@ -225,26 +218,3 @@ restartHAP
 
 ## Send commands directly
 This is a quick tip, but you can send commands directly to your Sonoff device from your raspberry pi. For more information on this, check [this wiki](https://github.com/arendst/Sonoff-Tasmota/wiki/Commands).
-
-# Pi-Hole
-
-## Install
-```bash
-curl -sSL https://install.pi-hole.net | bash
-```  
-During your installation, choose the openDNS servers (or the Google ones) and select the interface that you want to use (WiFi or Ethernet).  
-
-## Change password
-To change your password, use:
-```bash
-pihole -a -p newpasswordhere
-```  
-
-## Web interface
-To access the web interface, enter the fixed IP address of your Raspberry Pi into your browser and then add '/admin' to it. E.g.:
-```bash
-192.168.1.10/admin
-```  
-
-## Configure your devices
-To enable the ad blocking, your devices must use your Raspberry Pi's static IP address as DNS server. You can set these manually, configure your router to broadcast these settings, or disable DHCP on your router and use the DHCP server of PiHole.
